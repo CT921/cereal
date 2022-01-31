@@ -425,6 +425,7 @@ struct CarParams {
     pid @26 :LateralPIDTuning;
     indi @27 :LateralINDITuning;
     lqr @40 :LateralLQRTuning;
+    steerModel @66 :LateralModelTuning;
   }
 
   steerLimitAlert @28 :Bool;
@@ -496,6 +497,10 @@ struct CarParams {
     innerLoopGainDEPRECATED @1 :Float32;
     timeConstantDEPRECATED @2 :Float32;
     actuatorEffectivenessDEPRECATED @3 :Float32;
+  }
+
+  struct LateralModelTuning {
+    modelparam @0 :List(Float32);
   }
 
   struct LateralLQRTuning {
