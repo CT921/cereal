@@ -197,7 +197,7 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   # KRKeegan toyota distance lines
-  distanceLines @39 :UInt8;
+  distanceLines @40 :UInt8;
 
   struct WheelSpeeds {
     # optional wheel speeds
