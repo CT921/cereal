@@ -209,6 +209,7 @@ struct CarState {
   # KRKeegan toyota distance lines
   distanceLines @43 :UInt8;
   fuelGauge @41 :Float32; # battery or fuel tank level from 0.0 to 1.0
+  charging @43 :Bool;
 
   struct WheelSpeeds {
     # optional wheel speeds
