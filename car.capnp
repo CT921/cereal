@@ -207,7 +207,7 @@ struct CarState {
   rightBlindspot @34 :Bool; # Is there something blocking the right lane change
 
   # KRKeegan toyota distance lines
-  distanceLines @43 :UInt8;
+  distanceLines @44 :UInt8;
   fuelGauge @41 :Float32; # battery or fuel tank level from 0.0 to 1.0
   charging @43 :Bool;
 
