@@ -1092,11 +1092,10 @@ struct GnssMeasurements {
   ubloxMonoTime @0 :UInt64;
   correctedMeasurements @1 :List(CorrectedMeasurement);
 
-  positionECEF @2 :Measurement;
-  velocityECEF @3 :Measurement;
-  # todo add accuracy of position?
+  positionECEF @2 :LiveLocationKalman.Measurement;
+  velocityECEF @3 :LiveLocationKalman.Measurement;
   # Represents heading in degrees.
-  bearingDeg @4 :Measurement;
+  bearingDeg @4 :LiveLocationKalman.Measurement;
   # Todo sync this with timing pulse of ublox
 
   struct CorrectedMeasurement {
@@ -1122,12 +1121,6 @@ struct GnssMeasurements {
       imes @4;
       qznss @5;
       glonass @6;
-  }
-
-  struct Measurement {
-    value @0 : List(Float64);
-    std @1 : Float64;
-    valid @2 : Bool;
   }
 }
 
@@ -1794,6 +1787,7 @@ struct NavInstruction {
   showFull @9 :Bool;
 
   speedLimit @10 :Float32; # m/s
+  speedLimitSign @11 :SpeedLimitSign;
 
   struct Lane {
     directions @0 :List(Direction);
@@ -1808,6 +1802,10 @@ struct NavInstruction {
     straight @3;
   }
 
+  enum SpeedLimitSign {
+    mutcd @0; # US Style
+    vienna @1; # EU Style
+    }
 }
 
 struct NavRoute {
