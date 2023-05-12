@@ -114,9 +114,10 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     controlsdLagging @112;
     resumeBlocked @113;
     steerTimeLimit @115;
-    followDistanceAdjustmentDisabled @116;
-    atlEngageSound @117;
-    atlDisengageSound @118;
+    vehicleSensorsInvalid @116;
+    followDistanceAdjustmentDisabled @117;
+    atlEngageSound @118;
+    atlDisengageSound @119;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
@@ -217,6 +218,8 @@ struct CarState {
 
   # TOP
   distanceLines @46 :UInt8; # KRKeegan toyota distance lines
+  adjustableFollowCar @47 :Bool;
+  steeringWheelCar @48 :Bool;
 
   struct WheelSpeeds {
     # optional wheel speeds
@@ -491,6 +494,9 @@ struct CarParams {
   networkLocation @50 :NetworkLocation;  # Where Panda/C2 is integrated into the car's CAN network
 
   wheelSpeedFactor @63 :Float32; # Multiplier on wheels speeds to computer actual speeds
+
+  adjustableFollow @72 :Bool;
+  experimentalModeViaWheel @73 :Bool;
 
   struct SafetyConfig {
     safetyModel @0 :SafetyModel;
