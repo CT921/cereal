@@ -119,6 +119,9 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     followDistanceAdjustmentDisabled @118;
     atlEngageSound @119;
     atlDisengageSound @120;
+    torqueNNFFLoadSuccess @121;
+    torqueNNFFLoadFailure @122;
+    torqueNNFFNotLoaded @123;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
