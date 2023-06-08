@@ -608,7 +608,7 @@ struct LiveCalibrationData {
   calStatusDEPRECATED @1 :Int8;
   warpMatrix2DEPRECATED @5 :List(Float32);
   warpMatrixBigDEPRECATED @6 :List(Float32);
-  
+
   enum Status {
     uncalibrated @0;
     calibrated @1;
@@ -741,6 +741,8 @@ struct ControlsState @0x97ff69c53601abf1 {
     saturated @7 :Bool;
     actualLateralAccel @9 :Float32;
     desiredLateralAccel @10 :Float32;
+    nnffInput @11 :List(Float32);
+    errorScaleFactor @12 :Float32;
    }
 
   struct LateralLQRState {
