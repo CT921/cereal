@@ -49,7 +49,7 @@ services = {
   "carState": (True, 100., 10),
   "carControl": (True, 100., 10),
   "longitudinalPlan": (True, 20., 5),
-  "procLog": (True, 0.5, 15),
+  "procLog": (True, 0.5),
   "gpsLocationExternal": (True, 10., 10),
   "gpsLocation": (True, 1., 1),
   "ubloxGnss": (True, 10.),
@@ -83,7 +83,6 @@ services = {
   "qRoadEncodeIdx": (False, 20.),
   "userFlag": (True, 0., 1),
   "microphone": (True, 10., 10),
-  "liveMapData": (True, 0.),
 
   # debug
   "uiDebug": (True, 0., 1),
