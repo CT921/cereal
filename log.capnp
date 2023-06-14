@@ -16,6 +16,12 @@ struct Map(Key, Value) {
     value @1 :Value;
   }
 }
+  
+enum LongitudinalPersonality {
+    aggressive @0;
+    standard @1;
+    relaxed @2;
+  }
 
 struct InitData {
   kernelArgs @0 :List(Text);
@@ -603,12 +609,13 @@ struct LiveCalibrationData {
   rpyCalib @7 :List(Float32);
   rpyCalibSpread @8 :List(Float32);
   wideFromDeviceEuler @10 :List(Float32);
+  height @12 :List(Float32);
 
   warpMatrixDEPRECATED @0 :List(Float32);
   calStatusDEPRECATED @1 :Int8;
   warpMatrix2DEPRECATED @5 :List(Float32);
   warpMatrixBigDEPRECATED @6 :List(Float32);
-  
+
   enum Status {
     uncalibrated @0;
     calibrated @1;
@@ -968,17 +975,15 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   processingDelay @29 :Float32;
 
   # desired distances/speed/accel/jerk over next 2.5s
-  distances @36 :List(Float32);
+  distances @37 :List(Float32);
   accels @32 :List(Float32);
   speeds @33 :List(Float32);
   jerks @34 :List(Float32);
-  visionTurnControllerState @37 :VisionTurnControllerState;
-  visionTurnSpeed @38 :Float32;
+  visionTurnControllerState @38 :VisionTurnControllerState;
+  visionTurnSpeed @39 :Float32;
 
   solverExecutionTime @35 :Float32;
-  # visionCurrentLatAcc @38 :Float32;
-  # visionMaxPredLatAcc @39 :Float32;
-  # e2eIsBlended @40 :Bool;
+  personality @36 :LongitudinalPersonality;
 
   enum LongitudinalPlanSource {
     cruise @0;
@@ -1005,7 +1010,7 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   aTargetMinDEPRECATED @4 :Float32;
   aTargetMaxDEPRECATED @5 :Float32;
   lateralValidDEPRECATED @0 :Bool;
-  longitudinalValidDEPRECATED @2 :Bool;
+  longitudinalValid @2 :Bool;
   dPolyDEPRECATED @1 :List(Float32);
   laneWidthDEPRECATED @11 :Float32;
   vCurvatureDEPRECATED @21 :Float32;
@@ -1145,6 +1150,8 @@ struct LiveLocationKalman {
   timeSinceReset @23 :Float64;
   excessiveResets @24 :Bool;
   timeToFirstFix @25 :Float32;
+
+  filterState @26 : Measurement;
 
   enum Status {
     uninitialized @0;
@@ -2002,6 +2009,8 @@ struct CameraOdometry {
   rotStd @3 :List(Float32); # std rad/s in device frame
   wideFromDeviceEuler @6 :List(Float32);
   wideFromDeviceEulerStd @7 :List(Float32);
+  roadTransformTrans @8 :List(Float32);
+  roadTransformTransStd @9 :List(Float32);
 }
 
 struct Sentinel {
