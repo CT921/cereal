@@ -1010,7 +1010,7 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   aTargetMinDEPRECATED @4 :Float32;
   aTargetMaxDEPRECATED @5 :Float32;
   lateralValidDEPRECATED @0 :Bool;
-  longitudinalValid @2 :Bool;
+  longitudinalValidDEPRECATED @2 :Bool;
   dPolyDEPRECATED @1 :List(Float32);
   laneWidthDEPRECATED @11 :Float32;
   vCurvatureDEPRECATED @21 :Float32;
