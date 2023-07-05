@@ -171,7 +171,7 @@ struct CarState {
   # gas pedal, 0.0-1.0
   gas @3 :Float32;        # this is user pedal only
   gasPressed @4 :Bool;    # this is user pedal only
-  
+
   engineRpm @46 :Float32;
 
   # brake pedal, 0.0-1.0
@@ -224,13 +224,12 @@ struct CarState {
 
   # TOP
   distanceLines @48 :UInt8; # KRKeegan toyota distance lines
-  adjustableFollowCar @49 :Bool;
-  steeringWheelCar @50 :Bool;
-  rightBlindspotD1 @51 :Float32;
-  rightBlindspotD2 @52 :Float32;
-  leftBlindspotD1 @53 :Float32;
-  leftBlindspotD2 @54 :Float32;
-  blindspotside @55 :Float32;
+  steeringWheelCar @49 :Bool;
+  rightBlindspotD1 @50 :Float32;
+  rightBlindspotD2 @51 :Float32;
+  leftBlindspotD1 @52 :Float32;
+  leftBlindspotD2 @53 :Float32;
+  blindspotside @54 :Float32;
 
   struct WheelSpeeds {
     # optional wheel speeds
@@ -438,7 +437,7 @@ struct CarParams {
   carName @0 :Text;
   carFingerprint @1 :Text;
   fuzzyFingerprint @55 :Bool;
-  nnffFingerprint @74 :Text;
+  nnffFingerprint @73 :Text;
 
   notCar @66 :Bool;  # flag for non-car robotics platforms
 
@@ -507,8 +506,7 @@ struct CarParams {
 
   wheelSpeedFactor @63 :Float32; # Multiplier on wheels speeds to computer actual speeds
 
-  adjustableFollow @72 :Bool;
-  experimentalModeViaWheel @73 :Bool;
+  experimentalModeViaWheel @72 :Bool;
 
   struct SafetyConfig {
     safetyModel @0 :SafetyModel;
@@ -547,8 +545,6 @@ struct CarParams {
     kiBP @2 :List(Float32);
     kiV @3 :List(Float32);
     kf @6 :Float32;
-    kdBP @7 :List(Float32);
-    kdV @8 :List(Float32);
     deadzoneBP @4 :List(Float32);
     deadzoneV @5 :List(Float32);
   }
@@ -650,6 +646,7 @@ struct CarParams {
     engine @4;
     unknown @5;
     transmission @8; # Transmission Control Module
+    hybrid @18; # hybrid control unit, e.g. Chrysler's HCP, Honda's IMA Control Unit, Toyota's hybrid control computer
     srs @9; # airbag
     gateway @10; # can gateway
     hud @11; # heads up display
@@ -660,6 +657,9 @@ struct CarParams {
     cornerRadar @21;
     hvac @20;
     parkingAdas @7;  # parking assist system ECU, e.g. Toyota's IPAS, Hyundai's RSPA, etc.
+    epb @22;  # electronic parking brake
+    telematics @23;
+    body @24;  # body control module
 
     # Toyota only
     dsu @6;
@@ -668,11 +668,7 @@ struct CarParams {
     vsa @13; # Vehicle Stability Assist
     programmedFuelInjection @14;
 
-    # Chrysler only
-    hcp @18;  # Hybrid Control Processor
-
     debug @17;
-    unused @22;
   }
 
   enum FingerprintSource {

@@ -132,7 +132,6 @@ struct FrameData {
   frameIdSensor @25 :UInt32;
 
   frameType @7 :FrameType;
-  frameLength @3 :Int32;
 
   # Timestamps
   timestampEof @2 :UInt64;
@@ -167,6 +166,7 @@ struct FrameData {
     ox03c10 @2;
   }
 
+  frameLengthDEPRECATED @3 :Int32;
   globalGainDEPRECATED @5 :Int32;
   androidCaptureResultDEPRECATED @9 :AndroidCaptureResult;
   lensPosDEPRECATED @11 :Int32;
@@ -522,6 +522,10 @@ struct PandaState @0xa7649e2575e4591e {
     canfdEnabled @18 :Bool;
     brsEnabled @19 :Bool;
     canfdNonIso @20 :Bool;
+    irq0CallRate @21 :UInt32;
+    irq1CallRate @22 :UInt32;
+    irq2CallRate @23 :UInt32;
+    canCoreResetCnt @24 :UInt32;
 
     enum LecErrorCode {
       noError @0;
@@ -863,9 +867,12 @@ struct ModelDataV2 {
   leadsV3 @18 :List(LeadDataV3);
 
   meta @12 :MetaData;
+  confidence @23: ConfidenceClass;
 
   # Model perceived motion
   temporalPose @21 :Pose;
+
+  navEnabled @22 :Bool;
 
 
   struct LeadDataV2 {
@@ -909,6 +916,12 @@ struct ModelDataV2 {
     brakeDisengageProbDEPRECATED @2 :Float32;
     gasDisengageProbDEPRECATED @3 :Float32;
     steerOverrideProbDEPRECATED @4 :Float32;
+  }
+
+  enum ConfidenceClass {
+    red @0;
+    yellow @1;
+    green @2;
   }
 
   struct DisengagePredictions {
@@ -981,12 +994,10 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   processingDelay @29 :Float32;
 
   # desired distances/speed/accel/jerk over next 2.5s
-  distances @37 :List(Float32);
   accels @32 :List(Float32);
   speeds @33 :List(Float32);
   jerks @34 :List(Float32);
-  visionTurnControllerState @38 :VisionTurnControllerState;
-  visionTurnSpeed @39 :Float32;
+  distances @37 :List(Float32);
 
   solverExecutionTime @35 :Float32;
   personality @36 :LongitudinalPersonality;
@@ -997,7 +1008,6 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
     lead1 @2;
     lead2 @3;
     e2e @4;
-    turn @5;
   }
 
   # deprecated
@@ -1033,13 +1043,6 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
     x @0 :List(Float32);
     y @1 :List(Float32);
   }
-
-  enum VisionTurnControllerState { 
-    disabled @0; # No predicted substantial turn on vision range or feature disabled.
-    entering @1; # A subsantial turn is predicted ahead, adapting speed to turn comfort levels.
-    turning @2; # Actively turning. Managing acceleration to provide a roll on turn feeling.
-    leaving @3; # Road ahead straightens. Start to allow positive acceleration.
-  }
 }
 struct UiPlan {
   frameId @2 :UInt32;
@@ -1054,8 +1057,8 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   rProb @7 :Float32;
   dPathPoints @20 :List(Float32);
   dProb @21 :Float32;
-  dPathWLinesX @34 :List(Float32);
-  dPathWLinesY @35 :List(Float32);
+  dPathWLinesX @36 :List(Float32);
+  dPathWLinesY @37 :List(Float32);
 
   mpcSolutionValid @9 :Bool;
   desire @17 :Desire;
@@ -1069,8 +1072,16 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   curvatureRates @28 :List(Float32);
 
   solverExecutionTime @30 :Float32;
-  dynamicLaneProfile @32 :Bool;
-  standstillElapsed @33 :Float32;
+  solverCost @32 :Float32;
+  solverState @33 :SolverState;
+  dynamicLaneProfile @34 :Bool;
+  standstillElapsed @35 :Float32;
+
+
+  struct SolverState {
+    x @0 :List(List(Float32));
+    u @1 :List(Float32);
+  }
 
   enum Desire {
     none @0;
@@ -1244,6 +1255,8 @@ struct GnssMeasurements {
     svId @1 :UInt8;
     type @2 :EphemerisType;
     source @3 :EphemerisSource;
+    gpsWeek @4 : UInt16;
+    tow @5 :Float64;
   }
 
   struct CorrectedMeasurement {
@@ -1816,6 +1829,9 @@ struct QcomGnss @0xde94674b07ae51c1 {
     elevationDot @20 :Float32;
     elevationUncertainty @21 :Float32;
     velocityCoeff @22 :List(Float64);
+
+    gpsWeek @23 :UInt16;
+    gpsTow @24 :Float64;
   }
 }
 
@@ -1965,6 +1981,7 @@ struct LiveParametersData {
   stiffnessFactorStd @12 :Float32;
   steerRatioStd @13 :Float32;
   roll @14 :Float32;
+  filterState @15 :LiveLocationKalman.Measurement;
 
   yawRateDEPRECATED @7 :Float32;
 }
