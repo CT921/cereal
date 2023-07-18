@@ -341,6 +341,8 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   fanSpeedPercentDesired @10 :UInt16;
   screenBrightnessPercent @37 :Int8;
 
+  wifiIpAddress @45 :Text;
+  
   struct ThermalZone {
     name @0 :Text;
     temp @1 :Float32;
@@ -995,13 +997,10 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   longitudinalPlanSource @15 :LongitudinalPlanSource;
   processingDelay @29 :Float32;
 
-  # desired distances/speed/accel/jerk over next 2.5s
-  distances @37 :List(Float32);
+  # desired speed/accel/jerk over next 2.5s
   accels @32 :List(Float32);
   speeds @33 :List(Float32);
   jerks @34 :List(Float32);
-  visionTurnControllerState @38 :VisionTurnControllerState;
-  visionTurnSpeed @39 :Float32;
 
   solverExecutionTime @35 :Float32;
   personality @36 :LongitudinalPersonality;
@@ -1012,7 +1011,6 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
     lead1 @2;
     lead2 @3;
     e2e @4;
-    turn @5;
   }
 
   # deprecated
@@ -1047,13 +1045,6 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   struct GpsTrajectory {
     x @0 :List(Float32);
     y @1 :List(Float32);
-  }
-
-  enum VisionTurnControllerState { 
-    disabled @0; # No predicted substantial turn on vision range or feature disabled.
-    entering @1; # A subsantial turn is predicted ahead, adapting speed to turn comfort levels.
-    turning @2; # Actively turning. Managing acceleration to provide a roll on turn feeling.
-    leaving @3; # Road ahead straightens. Start to allow positive acceleration.
   }
 }
 struct UiPlan {
