@@ -398,6 +398,7 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   batteryStatusDEPRECATED @9 :Text;
   batteryVoltageDEPRECATED @16 :Int32;
   batteryTempCDEPRECATED @29 :Float32;
+  wifiIpAddress @45 :Text;
   batteryPercent @8 :Int16;
   batteryCurrent @15 :Int32;
   chargingError @17 :Bool;
