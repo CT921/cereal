@@ -340,6 +340,8 @@ struct DeviceState @0xa4d8b5af2aa492eb {
   fanSpeedPercentDesired @10 :UInt16;
   screenBrightnessPercent @37 :Int8;
 
+  wifiIpAddress @45 :Text;
+  
   struct ThermalZone {
     name @0 :Text;
     temp @1 :Float32;
@@ -994,11 +996,10 @@ struct LongitudinalPlan @0xe00b5b3eba12876c {
   longitudinalPlanSource @15 :LongitudinalPlanSource;
   processingDelay @29 :Float32;
 
-  # desired distances/speed/accel/jerk over next 2.5s
+  # desired speed/accel/jerk over next 2.5s
   accels @32 :List(Float32);
   speeds @33 :List(Float32);
   jerks @34 :List(Float32);
-  distances @37 :List(Float32);
 
   solverExecutionTime @35 :Float32;
   personality @36 :LongitudinalPersonality;
@@ -1077,7 +1078,6 @@ struct LateralPlan @0xe1e9318e2ae8b51e {
   solverState @33 :SolverState;
   dynamicLaneProfile @34 :Bool;
   standstillElapsed @35 :Float32;
-
 
   struct SolverState {
     x @0 :List(List(Float32));
@@ -2094,6 +2094,8 @@ struct NavInstruction {
   speedLimit @10 :Float32; # m/s
   speedLimitSign @11 :SpeedLimitSign;
 
+  allManeuvers @12 :List(Maneuver);
+
   struct Lane {
     directions @0 :List(Direction);
     active @1 :Bool;
@@ -2110,7 +2112,13 @@ struct NavInstruction {
   enum SpeedLimitSign {
     mutcd @0; # US Style
     vienna @1; # EU Style
-    }
+  }
+
+  struct Maneuver {
+    distance @0 :Float32;
+    type @1 :Text;
+    modifier @2 :Text;
+  }
 }
 
 struct NavRoute {
