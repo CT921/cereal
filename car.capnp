@@ -117,8 +117,9 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     vehicleSensorsInvalid @116;
     atlEngageSound @118;
     atlDisengageSound @119;
-    torqueNNLoad @120;
-    torqueNNNotLoaded @121;
+    torqueNNFFLoadSuccess @120;
+    torqueNNFFLoadFailure @121;
+    torqueNNFFNotLoaded @122;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
@@ -436,6 +437,7 @@ struct CarParams {
   carName @0 :Text;
   carFingerprint @1 :Text;
   fuzzyFingerprint @55 :Bool;
+  nnffFingerprint @75 :Text;
 
   notCar @66 :Bool;  # flag for non-car robotics platforms
 
@@ -537,8 +539,6 @@ struct CarParams {
     steeringAngleDeadzoneDeg @5 :Float32;
     latAccelFactor @6 :Float32;
     latAccelOffset @7 :Float32;
-    nnModelName @8 :Text;
-    nnModelFuzzyMatch @9 :Bool;
   }
 
   struct LongitudinalPIDTuning {
