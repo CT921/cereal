@@ -118,6 +118,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     atlEngageSound @118;
     atlDisengageSound @119;
     torqueNNLoad @120;
+    torqueNNNotLoaded @121;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
@@ -504,6 +505,7 @@ struct CarParams {
   wheelSpeedFactor @63 :Float32; # Multiplier on wheels speeds to computer actual speeds
 
   experimentalModeViaWheel @72 :Bool;
+  twilsoncoNNFF @73 :Bool;
 
   struct SafetyConfig {
     safetyModel @0 :SafetyModel;
@@ -535,6 +537,7 @@ struct CarParams {
     latAccelFactor @6 :Float32;
     latAccelOffset @7 :Float32;
     nnModelName @8 :Text;
+    nnModelFuzzyMatch @9 :Bool;
   }
 
   struct LongitudinalPIDTuning {
