@@ -122,6 +122,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     torqueNNFFLoadSuccess @122;
     torqueNNFFLoadFailure @123;
     torqueNNFFNotLoaded @124;
+    automaticBrakehold @125;
 
 
     radarCanErrorDEPRECATED @15;
@@ -423,6 +424,9 @@ struct CarControl {
       prompt @6;
       promptRepeat @7;
       promptDistracted @8;
+
+      # AleSato's automatic brakehold
+      engageBrakehold @9;
     }
   }
 
