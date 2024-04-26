@@ -102,8 +102,6 @@ services = {
   # legacy
   "driverState": (True, 10, 5),
   "sensorEvents": (True, 100., 100),
-  # mapd
-  "liveMapData": (True, 0.),
 }
 SERVICE_LIST = {name: Service(new_port(idx), *vals) for  # type: ignore
                 idx, (name, vals) in enumerate(services.items())}
